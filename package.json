@@ -1,0 +1,11 @@
+{
+  "name": "drift",
+  "version": "1.0.0",
+  "description": "A lightweight JavaScript carousel which can be created as a background on block elements.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Cullen Pu",
+  "license": "ISC"
+}
