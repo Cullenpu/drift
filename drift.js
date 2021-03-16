@@ -20,6 +20,31 @@ class DriftCarousel {
     this.imageElements = this.createImages();
     this.random = false;
   }
+
+  /*-------------------------------------------------------------------------*/
+  /*** DOM Functions ***/
+  createImages() {
+    const imageElements = this.images.map((image) => {
+      const imageElement = document.createElement("img");
+      imageElement.src = image;
+      imageElement.style.position = "absolute";
+      //   imageElement.style.objectFit = "cover";
+      imageElement.style.opacity = 0;
+      imageElement.style.visibility = "hidden";
+      imageElement.style.zIndex = -1000;
+
+      // Set width and height of each image to fill the entire parent element
+      imageElement.style.width = "100%";
+      imageElement.style.height = "100%";
+      imageElement.style.objectFit = "cover";
+
+      this.parentElement.prepend(imageElement);
+      return imageElement;
+    });
+    return imageElements;
+  }
+  /*-------------------------------------------------------------------------*/
+
   renderCarousel(n) {
     this.setInvisible(this.imageElements[this.imageNum]);
     this.imageNum = n;
@@ -42,31 +67,6 @@ class DriftCarousel {
       }
     }
     return next;
-  }
-  createImages() {
-    const imageElements = this.images.map((image) => {
-      const imageElement = document.createElement("img");
-      imageElement.src = image;
-      imageElement.style.position = "absolute";
-      //   imageElement.style.objectFit = "cover";
-      imageElement.style.opacity = 0;
-      imageElement.style.visibility = "hidden";
-      imageElement.style.zIndex = -1000;
-
-      // Set width or height of each image to fill the entire parent element
-      const widthRatio = imageElement.width / this.parentElement.width;
-      const heightRatio = imageElement.height / this.parentElement.height;
-      console.log(widthRatio, heightRatio);
-      if (widthRatio < heightRatio) {
-        imageElement.style.height = "100%";
-      } else {
-        imageElement.style.width = "100%";
-      }
-
-      this.parentElement.prepend(imageElement);
-      return imageElement;
-    });
-    return imageElements;
   }
   setVisible(imageElement) {
     imageElement.style.visibility = "visible";
