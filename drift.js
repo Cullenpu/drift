@@ -1,27 +1,26 @@
 "use strict";
 
-function DriftCarousel(selector, images) {
-  this.parentElement = document.querySelector(selector);
-  const origPosition = this.parentElement.style.position;
-  console.log("Original parent position: ", origPosition);
-  if (!origPosition || origPosition === "static") {
-    // Parent element must be relaitve for image to be properly sized
-    console.log("Set parent position to relaitve");
-    this.parentElement.style.position = "relative";
+class DriftCarousel {
+  constructor(selector, images) {
+    this.parentElement = document.querySelector(selector);
+    const origPosition = this.parentElement.style.position;
+    console.log("Original parent position: ", origPosition);
+    if (!origPosition || origPosition === "static") {
+      // Parent element must be relaitve for image to be properly sized
+      console.log("Set parent position to relaitve");
+      this.parentElement.style.position = "relative";
+    }
+
+    this.parentElement.style.overflow = "hidden";
+    this.transitionTimeout = 5000;
+    this.transitionDuration = 1000;
+    this.opacity = 1;
+    this.imageNum = 0;
+    this.images = images;
+    this.imageElements = this.createImages();
+    this.random = false;
   }
-
-  this.parentElement.style.overflow = "hidden";
-  this.transitionTimeout = 5000;
-  this.transitionDuration = 1000;
-  this.maxOpacity = 1;
-  this.imageNum = 0;
-  this.images = images;
-  this.imageElements = this.createImages();
-  this.random = false;
-}
-
-DriftCarousel.prototype = {
-  renderCarousel: function (n) {
+  renderCarousel(n) {
     this.setInvisible(this.imageElements[this.imageNum]);
     this.imageNum = n;
     this.setVisible(this.imageElements[this.imageNum]);
@@ -30,8 +29,8 @@ DriftCarousel.prototype = {
       console.log("switch", this.imageNum);
       this.renderCarousel(next);
     }, this.transitionTimeout);
-  },
-  getNextImage: function (n, direction) {
+  }
+  getNextImage(n, direction) {
     let next = n;
     if (direction === "left") {
       next = n === 0 ? this.imageElements.length - 1 : n - 1;
@@ -43,8 +42,8 @@ DriftCarousel.prototype = {
       }
     }
     return next;
-  },
-  createImages: function () {
+  }
+  createImages() {
     const imageElements = this.images.map((image) => {
       const imageElement = document.createElement("img");
       imageElement.src = image;
@@ -68,32 +67,32 @@ DriftCarousel.prototype = {
       return imageElement;
     });
     return imageElements;
-  },
-  setVisible: function (imageElement) {
+  }
+  setVisible(imageElement) {
     imageElement.style.visibility = "visible";
-    imageElement.style.opacity = this.maxOpacity;
+    imageElement.style.opacity = this.opacity;
     imageElement.style.transition = `opacity ${this.transitionDuration}ms`;
-  },
-  setInvisible: function (imageElement) {
+  }
+  setInvisible(imageElement) {
     imageElement.style.visibility = "hidden";
     imageElement.style.opacity = 0;
     imageElement.style.transition = `visibility 0s ${this.transitionDuration}ms, opacity ${this.transitionDuration}ms`;
-  },
-  setRandom: function () {
+  }
+  setRandom() {
     this.random = true;
-  },
-  unSetRandom: function () {
+  }
+  setNotRandom() {
     this.random = false;
-  },
-  setTransitionTimeout: function (transitionTimeout) {
+  }
+  setTransitionTimeout(transitionTimeout) {
     // Time in between images
     this.transitionTimeout = transitionTimeout;
-  },
-  setTransitionDuration: function (transitionDuration) {
+  }
+  setTransitionDuration(transitionDuration) {
     // Duration of image transition
     this.transitionDuration = transitionDuration;
-  },
-  setMaxOpacity: function (maxOpacity) {
-    this.maxOpacity = maxOpacity;
-  },
-};
+  }
+  setOpacity(opacity) {
+    this.opacity = opacity;
+  }
+}
