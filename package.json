@@ -1,11 +1,15 @@
 {
   "name": "drift",
   "version": "1.0.0",
-  "description": "A lightweight JavaScript carousel which can be created as a background on block elements.",
-  "main": "index.js",
+  "description": "A lightweight, dependency free, JavaScript package capable of turning anything into a carousel.",
+  "main": "server.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
   },
   "author": "Cullen Pu",
-  "license": "ISC"
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.17.1"
+  }
 }
