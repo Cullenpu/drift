@@ -9,13 +9,14 @@ const images = [
 ];
 
 const landing = new DriftCarousel("#landing", images);
+landing.setOpacity(0.6);
+landing.setNotIndicators();
 landing.setRandom();
-landing.setOpacity(0.75);
+landing.setDark();
 landing.renderCarousel(0);
 
 const landscapeCarousel = new DriftCarousel("#landscape-carousel", images);
 landscapeCarousel.setTransitionTimeout(3000);
 landscapeCarousel.setTransitionDuration(2000);
 landscapeCarousel.setOpacity(0.5);
-landscapeCarousel.setRandom();
 landscapeCarousel.renderCarousel(0);

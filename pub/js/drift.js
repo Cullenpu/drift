@@ -3,6 +3,8 @@
 class DriftCarousel {
   constructor(selector, images) {
     this.parentElement = document.querySelector(selector);
+
+    /** Set parent element styles */
     const origPosition = this.parentElement.style.position;
     console.log("Original parent position: ", origPosition);
     if (!origPosition || origPosition === "static") {
@@ -10,25 +12,38 @@ class DriftCarousel {
       console.log("Set parent position to relaitve");
       this.parentElement.style.position = "relative";
     }
-
     this.parentElement.style.overflow = "hidden";
+
+    /** Carousel state */
+    this.currTimeout;
+    this.imageNum = 0;
+
+    /** Carousel configuration */
     this.transitionTimeout = 5000;
     this.transitionDuration = 1000;
     this.opacity = 1;
-    this.imageNum = 0;
-    this.images = images;
-    this.imageElements = this.createImages();
+    this.indicators = true;
     this.random = false;
+    this.dark = false;
+
+    /** DOM related objects */
+    // List of images for carousel
+    this.images = images;
+
+    // List of carousel image DOM elements
+    this.imageElements = this.createImages();
+
+    // Div containing indicators used in carousel
+    this.indicatorElements = this.createIndicators();
   }
 
   /*-------------------------------------------------------------------------*/
-  /*** DOM Functions ***/
+  /** DOM Functions ***/
   createImages() {
     const imageElements = this.images.map((image) => {
       const imageElement = document.createElement("img");
       imageElement.src = image;
       imageElement.style.position = "absolute";
-      //   imageElement.style.objectFit = "cover";
       imageElement.style.opacity = 0;
       imageElement.style.visibility = "hidden";
       imageElement.style.zIndex = -1000;
@@ -43,47 +58,99 @@ class DriftCarousel {
     });
     return imageElements;
   }
-  /*-------------------------------------------------------------------------*/
+  createIndicators() {
+    const indicatorElements = document.createElement("div");
+    indicatorElements.style.position = "absolute";
+    indicatorElements.style.bottom = "10px";
+    indicatorElements.style.left = "50%";
+    indicatorElements.style.transform = "translate(-50%, 0)";
+    indicatorElements.style.textAlign = "center";
 
-  renderCarousel(n) {
-    this.setInvisible(this.imageElements[this.imageNum]);
-    this.imageNum = n;
-    this.setVisible(this.imageElements[this.imageNum]);
-    const next = this.getNextImage(n);
-    setTimeout(() => {
-      console.log("switch", this.imageNum);
+    // Add indicators to the div
+    this.images.forEach((image, i) => {
+      const indicatorElement = document.createElement("span");
+      indicatorElement.style.display = "inline-block";
+      indicatorElement.style.width = "6px";
+      indicatorElement.style.height = "6px";
+      indicatorElement.style.background = "#AFAFAF";
+      indicatorElement.style.margin = "0 5px";
+      indicatorElement.style.borderRadius = "50%";
+      indicatorElement.style.cursor = "pointer";
+      indicatorElement.addEventListener("click", () => this.renderCarousel(i));
+
+      indicatorElements.appendChild(indicatorElement);
+    });
+
+    this.parentElement.insertBefore(
+      indicatorElements,
+      this.parentElement.children[this.images.length - 1].nextSibling
+    );
+    return indicatorElements;
+  }
+
+  /*-------------------------------------------------------------------------*/
+  /** Rendering Functions ***/
+  renderCarousel(i) {
+    clearTimeout(this.currTimeout);
+
+    this.setInvisible(this.imageNum);
+    this.imageNum = i;
+    this.setVisible(this.imageNum);
+
+    const next = this.getNextImage(i);
+    this.currTimeout = setTimeout(() => {
+      // console.log("switch", this.imageNum);
       this.renderCarousel(next);
     }, this.transitionTimeout);
   }
-  getNextImage(n, direction) {
-    let next = n;
+  getNextImage(i, direction) {
+    let next = i;
     if (direction === "left") {
-      next = n === 0 ? this.imageElements.length - 1 : n - 1;
+      next = i === 0 ? this.imageElements.length - 1 : i - 1;
     } else if (direction === "right" || !this.random) {
-      next = n === this.imageElements.length - 1 ? 0 : n + 1;
+      next = i === this.imageElements.length - 1 ? 0 : i + 1;
     } else {
-      while (next === n) {
+      while (next === i) {
         next = Math.floor(Math.random() * this.imageElements.length);
       }
     }
     return next;
   }
-  setVisible(imageElement) {
+  setVisible(i) {
+    if (this.indicators) {
+      this.indicatorElements.style.visibility = "visible";
+      const indicatorElement = this.indicatorElements.children[i];
+      indicatorElement.style.background = "#D3D3D3";
+      indicatorElement.style.transition = `background-color ${this.transitionDuration}ms ease`;
+    } else {
+      this.indicatorElements.style.visibility = "hidden";
+    }
+
+    const imageElement = this.imageElements[i];
     imageElement.style.visibility = "visible";
+    if (this.dark) {
+      imageElement.style.filter = "brightness(55%)";
+    }
     imageElement.style.opacity = this.opacity;
     imageElement.style.transition = `opacity ${this.transitionDuration}ms`;
   }
-  setInvisible(imageElement) {
+  setInvisible(i) {
+    if (this.indicators) {
+      this.indicatorElements.style.visibility = "visible";
+      const indicatorElement = this.indicatorElements.children[i];
+      indicatorElement.style.background = "#AFAFAF";
+    } else {
+      this.indicatorElements.style.visibility = "hidden";
+    }
+
+    const imageElement = this.imageElements[i];
     imageElement.style.visibility = "hidden";
     imageElement.style.opacity = 0;
     imageElement.style.transition = `visibility 0s ${this.transitionDuration}ms, opacity ${this.transitionDuration}ms`;
   }
-  setRandom() {
-    this.random = true;
-  }
-  setNotRandom() {
-    this.random = false;
-  }
+
+  /*-------------------------------------------------------------------------*/
+  /** Configuration Functions ***/
   setTransitionTimeout(transitionTimeout) {
     // Time in between images
     this.transitionTimeout = transitionTimeout;
@@ -94,5 +161,24 @@ class DriftCarousel {
   }
   setOpacity(opacity) {
     this.opacity = opacity;
+  }
+  setIndicators() {
+    this.indicators = true;
+  }
+  setNotIndicators() {
+    this.indicators = false;
+  }
+  setRandom() {
+    this.random = true;
+  }
+  setNotRandom() {
+    this.random = false;
+  }
+  setDark() {
+    // Darken the carousel
+    this.dark = true;
+  }
+  setNotDark() {
+    this.dark = false;
   }
 }
