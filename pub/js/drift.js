@@ -87,6 +87,7 @@ class DriftCarousel {
       indicatorElement.style.margin = "0 5px";
       indicatorElement.style.borderRadius = "50%";
       indicatorElement.style.cursor = "pointer";
+      indicatorElement.style.transition = `background-color ${this.transitionDuration}ms ease, opacity ${this.transitionDuration}ms ease`;
       indicatorElement.addEventListener("click", () => this.renderCarousel(i));
 
       indicatorElements.appendChild(indicatorElement);
@@ -120,17 +121,18 @@ class DriftCarousel {
         "path"
       );
       arrowPath.setAttribute("d", arrowPaths[i]);
-      arrowPath.setAttribute("fill", this.gray);
-      arrowPath.setAttribute("opacity", this.grayOpacity);
+      arrowPath.style.fill = this.gray;
+      arrowPath.style.opacity = this.grayOpacity;
+      arrowPath.style.transition = "fill 200ms ease, opacity 200ms ease";
       arrow.appendChild(arrowPath);
 
       arrow.onmouseover = () => {
-        arrow.firstElementChild.setAttribute("fill", this.altGray);
-        arrow.firstElementChild.setAttribute("opacity", this.altGrayOpacity);
+        arrow.firstElementChild.style.fill = this.altGray;
+        arrow.firstElementChild.style.opacity = this.altGrayOpacity;
       };
       arrow.onmouseleave = () => {
-        arrow.firstElementChild.setAttribute("fill", this.gray);
-        arrow.firstElementChild.setAttribute("opacity", this.grayOpacity);
+        arrow.firstElementChild.style.fill = this.gray;
+        arrow.firstElementChild.style.opacity = this.grayOpacity;
       };
     });
 
@@ -183,7 +185,6 @@ class DriftCarousel {
     const indicatorElement = this.indicatorElements.children[i];
     indicatorElement.style.background = this.altGray;
     indicatorElement.style.opacity = this.altGrayOpacity;
-    indicatorElement.style.transition = `background-color ${this.transitionDuration}ms ease`;
     this.renderArrows();
 
     const imageElement = this.imageElements[i];
