@@ -8,35 +8,52 @@ const images = [
   "res/img5.jpg",
 ];
 
-const landing = new DriftCarousel("#landing", images);
-landing.setOpacity(0.6);
-landing.setNotIndicators();
-landing.setNotArrows();
-landing.setRandom();
-landing.setDark();
+
+const landingConfig = {
+  brightness: 0.5,
+  opacity: 0.6,
+  indicators: false,
+  arrows: false,
+};
+const landing = new DriftCarousel("#landing", images, landingConfig);
 landing.renderCarousel(0);
 
-const landscapeCarousel = new DriftCarousel("#landscape-carousel", images);
-landscapeCarousel.setTransitionTimeout(3000);
-landscapeCarousel.setTransitionDuration(2000);
-landscapeCarousel.setOpacity(0.5);
+
+const landscapeCarouselConfig = {
+  transitionTimeout: 3000,
+  transitionDuration: 2000,
+  opacity: 0.5,
+};
+const landscapeCarousel = new DriftCarousel(
+  "#landscape-carousel",
+  images,
+  landscapeCarouselConfig
+);
 landscapeCarousel.renderCarousel(0);
 
+
+const portraitCarouselLeftConfig = {
+  transitionTimeout: 3000,
+  random: true,
+  arrows: false,
+};
 const portraitCarouselLeft = new DriftCarousel(
   "#portrait-carousel-left",
-  images
+  images,
+  portraitCarouselLeftConfig
 );
-portraitCarouselLeft.setTransitionTimeout(3000);
-portraitCarouselLeft.setNotArrows();
-portraitCarouselLeft.setRandom();
 portraitCarouselLeft.renderCarousel(0);
 
+
+const portraitCarouselRightConfig = {
+  transitionTimeout: 3000,
+  brightness: 0.55,
+  opacity: 0.7,
+  indicators: false,
+};
 const portraitCarouselRight = new DriftCarousel(
   "#portrait-carousel-right",
-  images
+  images,
+  portraitCarouselRightConfig
 );
-portraitCarouselRight.setTransitionTimeout(3000);
-portraitCarouselRight.setOpacity(0.7);
-portraitCarouselRight.setNotIndicators();
-portraitCarouselRight.setDark();
 portraitCarouselRight.renderCarousel(0);

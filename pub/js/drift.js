@@ -1,7 +1,7 @@
 "use strict";
 
 class DriftCarousel {
-  constructor(selector, images) {
+  constructor(selector, images, config) {
     this.parentElement = document.querySelector(selector);
 
     /** Set parent element styles */
@@ -15,21 +15,32 @@ class DriftCarousel {
     this.parentElement.style.overflow = "hidden";
 
     /** Carousel state */
-    this.currTimeout;
-    this.imageNum = 0;
+    this.state = {
+      currTimeout: null,
+      imageNum: 0,
+    };
+
+    // Styles for indicators and arrows
     this.gray = "#D1D1D1";
     this.grayOpacity = "60%";
     this.altGray = "#F5F5F5";
     this.altGrayOpacity = "90%";
 
     /** Carousel configuration */
-    this.transitionTimeout = 5000;
-    this.transitionDuration = 1000;
-    this.opacity = 1;
-    this.indicators = true;
-    this.arrows = true;
-    this.random = false;
-    this.dark = false;
+    this.config = {
+      transitionTimeout: 5000,
+      transitionDuration: 1000,
+      random: false,
+      brightness: 1,
+      opacity: 1,
+      indicators: true,
+      arrows: true,
+    };
+
+    if (config) {
+      // Update with user configuration
+      this.config = { ...this.config, ...config };
+    }
 
     /** DOM related objects */
     // List of images for carousel
@@ -87,7 +98,7 @@ class DriftCarousel {
       indicatorElement.style.margin = "0 5px";
       indicatorElement.style.borderRadius = "50%";
       indicatorElement.style.cursor = "pointer";
-      indicatorElement.style.transition = `background-color ${this.transitionDuration}ms ease, opacity ${this.transitionDuration}ms ease`;
+      indicatorElement.style.transition = `background-color ${this.config.transitionDuration}ms ease, opacity ${this.config.transitionDuration}ms ease`;
       indicatorElement.addEventListener("click", () => this.renderCarousel(i));
 
       indicatorElements.appendChild(indicatorElement);
@@ -153,28 +164,32 @@ class DriftCarousel {
   /*-------------------------------------------------------------------------*/
   /** Rendering Functions ***/
   renderCarousel(i) {
-    clearTimeout(this.currTimeout);
+    clearTimeout(this.state.currTimeout);
 
-    this.setInvisible(this.imageNum);
-    this.imageNum = i;
-    this.setVisible(this.imageNum);
+    this.setInvisible(this.state.imageNum);
+    this.state.imageNum = i;
+    this.setVisible(this.state.imageNum);
 
     const next = this.getNextImage();
-    this.currTimeout = setTimeout(() => {
+    this.state.currTimeout = setTimeout(() => {
       // console.log("switch", this.imageNum);
       this.renderCarousel(next);
-    }, this.transitionTimeout);
+    }, this.config.transitionTimeout);
   }
   getNextImage(direction) {
-    let next = this.imageNum;
+    let next = this.state.imageNum;
     if (direction === "left") {
       next =
-        this.imageNum === 0 ? this.imageElements.length - 1 : this.imageNum - 1;
-    } else if (direction === "right" || !this.random) {
+        this.state.imageNum === 0
+          ? this.imageElements.length - 1
+          : this.state.imageNum - 1;
+    } else if (direction === "right" || !this.config.random) {
       next =
-        this.imageNum === this.imageElements.length - 1 ? 0 : this.imageNum + 1;
+        this.state.imageNum === this.imageElements.length - 1
+          ? 0
+          : this.state.imageNum + 1;
     } else {
-      while (next === this.imageNum) {
+      while (next === this.state.imageNum) {
         next = Math.floor(Math.random() * this.imageElements.length);
       }
     }
@@ -189,11 +204,9 @@ class DriftCarousel {
 
     const imageElement = this.imageElements[i];
     imageElement.style.visibility = "visible";
-    if (this.dark) {
-      imageElement.style.filter = "brightness(55%)";
-    }
-    imageElement.style.opacity = this.opacity;
-    imageElement.style.transition = `opacity ${this.transitionDuration}ms`;
+    imageElement.style.filter = `brightness(${this.config.brightness * 100}%)`;
+    imageElement.style.opacity = this.config.opacity;
+    imageElement.style.transition = `opacity ${this.config.transitionDuration}ms`;
   }
   setInvisible(i) {
     this.renderIndicators();
@@ -205,17 +218,17 @@ class DriftCarousel {
     const imageElement = this.imageElements[i];
     imageElement.style.visibility = "hidden";
     imageElement.style.opacity = 0;
-    imageElement.style.transition = `visibility 0s ${this.transitionDuration}ms, opacity ${this.transitionDuration}ms`;
+    imageElement.style.transition = `visibility 0s ${this.config.transitionDuration}ms, opacity ${this.config.transitionDuration}ms`;
   }
   renderIndicators() {
-    if (this.indicators) {
+    if (this.config.indicators) {
       this.indicatorElements.style.visibility = "visible";
     } else {
       this.indicatorElements.style.visibility = "hidden";
     }
   }
   renderArrows() {
-    if (this.arrows) {
+    if (this.config.arrows) {
       this.leftArrow.style.visibility = "visible";
       this.rightArrow.style.visibility = "visible";
     } else {
@@ -228,38 +241,25 @@ class DriftCarousel {
   /** Configuration Functions ***/
   setTransitionTimeout(transitionTimeout) {
     // Time in between images
-    this.transitionTimeout = transitionTimeout;
+    this.config.transitionTimeout = transitionTimeout;
   }
   setTransitionDuration(transitionDuration) {
     // Duration of image transition
-    this.transitionDuration = transitionDuration;
+    this.config.transitionDuration = transitionDuration;
+  }
+  setRandom(toggle) {
+    this.config.random = toggle;
+  }
+  setBrightness(brightness) {
+    this.config.brightness = brightness;
   }
   setOpacity(opacity) {
-    this.opacity = opacity;
+    this.config.opacity = opacity;
   }
-  setIndicators() {
-    this.indicators = true;
+  setIndicators(toggle) {
+    this.config.indicators = toggle;
   }
-  setNotIndicators() {
-    this.indicators = false;
-  }
-  setArrows() {
-    this.arrows = true;
-  }
-  setNotArrows() {
-    this.arrows = false;
-  }
-  setRandom() {
-    this.random = true;
-  }
-  setNotRandom() {
-    this.random = false;
-  }
-  setDark() {
-    // Darken the carousel
-    this.dark = true;
-  }
-  setNotDark() {
-    this.dark = false;
+  setArrows(toggle) {
+    this.config.arrows = toggle;
   }
 }
