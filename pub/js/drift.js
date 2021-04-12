@@ -1,7 +1,7 @@
 "use strict";
 
 class DriftCarousel {
-  constructor(selector, images, config) {
+  constructor(selector, images, config, captions) {
     this.parentElement = document.querySelector(selector);
 
     /** Set parent element styles */
@@ -33,12 +33,14 @@ class DriftCarousel {
       random: false,
       brightness: 1,
       opacity: 1,
+      captions: false,
       indicators: true,
       arrows: true,
     };
 
     if (config) {
       // Update with user configuration
+      // TODO: validate captions array length
       this.config = { ...this.config, ...config };
     }
 
@@ -49,6 +51,12 @@ class DriftCarousel {
     // List of carousel image DOM elements
     this.imageElements = this.createImages();
 
+    // Optional list of image captions
+    this.captions = captions;
+
+    // List of caption DOM elements
+    this.captionElements = this.createCaptions();
+
     // Div containing indicators used in carousel
     this.indicatorElements = this.createIndicators();
 
@@ -58,9 +66,9 @@ class DriftCarousel {
     this.rightArrow = arrows[1];
   }
 
-  /*-------------------------------------------------------------------------*/
-  /** DOM Functions ***/
+  /** DOM Functions **********************************************************/
   createImages() {
+    // Create array of image DOM elements
     const imageElements = this.images.map((image) => {
       const imageElement = document.createElement("img");
       imageElement.src = image;
@@ -70,8 +78,11 @@ class DriftCarousel {
       imageElement.style.zIndex = -1000;
 
       // Set width and height of each image to fill the entire parent element
+      // or leave space for captions if captions are configured
       imageElement.style.width = "100%";
-      imageElement.style.height = "100%";
+      imageElement.style.height = this.config.captions
+        ? "calc(100% - 14px)"
+        : "100%";
       imageElement.style.objectFit = "cover";
 
       this.parentElement.prepend(imageElement);
@@ -79,10 +90,31 @@ class DriftCarousel {
     });
     return imageElements;
   }
+  createCaptions() {
+    if (this.config.captions) {
+      // Create array of caption DOM elements
+      const captionElements = this.captions.map((caption) => {
+        const captionElement = document.createElement("p");
+        captionElement.style.margin = "2px";
+        captionElement.style.position = "absolute";
+        captionElement.style.bottom = "0";
+        captionElement.style.opacity = 0;
+        captionElement.style.visibility = "hidden";
+        captionElement.style.fontSize = "10px";
+        captionElement.innerHTML = caption;
+
+        this.parentElement.prepend(captionElement);
+        return captionElement;
+      });
+      return captionElements;
+    } else {
+      return null;
+    }
+  }
   createIndicators() {
     const indicatorElements = document.createElement("div");
     indicatorElements.style.position = "absolute";
-    indicatorElements.style.bottom = "10px";
+    indicatorElements.style.bottom = this.config.captions ? "24px" : "10px";
     indicatorElements.style.left = "50%";
     indicatorElements.style.transform = "translate(-50%, 0)";
     indicatorElements.style.textAlign = "center";
@@ -161,18 +193,17 @@ class DriftCarousel {
     return arrows;
   }
 
-  /*-------------------------------------------------------------------------*/
-  /** Rendering Functions ***/
+  /** Rendering Functions ****************************************************/
   renderCarousel(i) {
     clearTimeout(this.state.currTimeout);
 
-    this.setInvisible(this.state.imageNum);
+    // Set current image to hidden and next image to visible
+    this.setVisibility(this.state.imageNum, "hidden");
     this.state.imageNum = i;
-    this.setVisible(this.state.imageNum);
+    this.setVisibility(this.state.imageNum, "visible");
 
     const next = this.getNextImage();
     this.state.currTimeout = setTimeout(() => {
-      // console.log("switch", this.imageNum);
       this.renderCarousel(next);
     }, this.config.transitionTimeout);
   }
@@ -195,34 +226,54 @@ class DriftCarousel {
     }
     return next;
   }
-  setVisible(i) {
-    this.renderIndicators();
-    const indicatorElement = this.indicatorElements.children[i];
-    indicatorElement.style.background = this.altGray;
-    indicatorElement.style.opacity = this.altGrayOpacity;
+  setVisibility(i, visibility) {
+    this.renderImages(i, visibility);
+    this.renderCaptions(i, visibility);
     this.renderArrows();
-
-    const imageElement = this.imageElements[i];
-    imageElement.style.visibility = "visible";
-    imageElement.style.filter = `brightness(${this.config.brightness * 100}%)`;
-    imageElement.style.opacity = this.config.opacity;
-    imageElement.style.transition = `opacity ${this.config.transitionDuration}ms`;
+    this.renderIndicators(i, visibility);
   }
-  setInvisible(i) {
-    this.renderIndicators();
-    const indicatorElement = this.indicatorElements.children[i];
-    indicatorElement.style.background = this.gray;
-    indicatorElement.style.opacity = this.grayOpacity;
-    this.renderArrows();
-
+  renderImages(i, visibility) {
     const imageElement = this.imageElements[i];
-    imageElement.style.visibility = "hidden";
-    imageElement.style.opacity = 0;
-    imageElement.style.transition = `visibility 0s ${this.config.transitionDuration}ms, opacity ${this.config.transitionDuration}ms`;
+    if (visibility === "visible") {
+      imageElement.style.visibility = "visible";
+      imageElement.style.filter = `brightness(${
+        this.config.brightness * 100
+      }%)`;
+      imageElement.style.opacity = this.config.opacity;
+      imageElement.style.transition = `opacity ${this.config.transitionDuration}ms`;
+    } else if (visibility === "hidden") {
+      imageElement.style.visibility = "hidden";
+      imageElement.style.opacity = 0;
+      imageElement.style.transition = `visibility 0s ${this.config.transitionDuration}ms, opacity ${this.config.transitionDuration}ms`;
+    }
   }
-  renderIndicators() {
+  renderCaptions(i, visibility) {
+    if (this.config.captions) {
+      const captionElement = this.captionElements[i];
+      if (visibility === "visible") {
+        captionElement.style.visibility = "visible";
+        captionElement.style.opacity = 1;
+        captionElement.style.transition = `opacity ${this.config.transitionDuration}ms`;
+      } else if (visibility === "hidden") {
+        captionElement.style.visibility = "hidden";
+        captionElement.style.opacity = 0;
+        captionElement.style.transition = `visibility 0s ${this.config.transitionDuration}ms, opacity ${this.config.transitionDuration}ms`;
+      }
+    }
+  }
+  renderIndicators(i, visibility) {
     if (this.config.indicators) {
       this.indicatorElements.style.visibility = "visible";
+      const indicatorElement = this.indicatorElements.children[i];
+      if (visibility === "visible") {
+        // This is the currently shown image so set indicator with the alternate color scheme
+        indicatorElement.style.background = this.altGray;
+        indicatorElement.style.opacity = this.altGrayOpacity;
+      } else {
+        // This is not the currently shown image so set indicator with regular color scheme
+        indicatorElement.style.background = this.gray;
+        indicatorElement.style.opacity = this.grayOpacity;
+      }
     } else {
       this.indicatorElements.style.visibility = "hidden";
     }
@@ -237,8 +288,7 @@ class DriftCarousel {
     }
   }
 
-  /*-------------------------------------------------------------------------*/
-  /** Configuration Functions ***/
+  /** Configuration Functions ************************************************/
   setTransitionTimeout(transitionTimeout) {
     // Time in between images
     this.config.transitionTimeout = transitionTimeout;

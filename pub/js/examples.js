@@ -8,6 +8,14 @@ const images = [
   "res/img5.jpg",
 ];
 
+const captions = [
+  "Caption 1",
+  "Caption 2",
+  "Caption 3",
+  "Caption 4",
+  "Caption 5",
+];
+
 
 const landingConfig = {
   brightness: 0.5,
@@ -35,12 +43,14 @@ landscapeCarousel.renderCarousel(0);
 const portraitCarouselLeftConfig = {
   transitionTimeout: 3000,
   random: true,
+  captions: true,
   arrows: false,
 };
 const portraitCarouselLeft = new DriftCarousel(
   "#portrait-carousel-left",
   images,
-  portraitCarouselLeftConfig
+  portraitCarouselLeftConfig,
+  captions
 );
 portraitCarouselLeft.renderCarousel(0);
 
