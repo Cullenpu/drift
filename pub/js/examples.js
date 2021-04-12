@@ -1,11 +1,11 @@
 "use strict";
 
-const images = [
-  "res/img1.jpg",
-  "res/img2.jpg",
-  "res/img3.jpg",
-  "res/img4.jpg",
-  "res/img5.jpg",
+const exampleImages = [
+  "res/example/img1.jpg",
+  "res/example/img2.jpg",
+  "res/example/img3.jpg",
+  "res/example/img4.jpg",
+  "res/example/img5.jpg",
 ];
 
 const captions = [
@@ -16,17 +16,6 @@ const captions = [
   "Caption 5",
 ];
 
-
-const landingConfig = {
-  brightness: 0.5,
-  opacity: 0.6,
-  indicators: false,
-  arrows: false,
-};
-const landing = new DriftCarousel("#landing", images, landingConfig);
-landing.renderCarousel(0);
-
-
 const landscapeCarouselConfig = {
   transitionTimeout: 3000,
   transitionDuration: 2000,
@@ -34,7 +23,7 @@ const landscapeCarouselConfig = {
 };
 const landscapeCarousel = new DriftCarousel(
   "#landscape-carousel",
-  images,
+  exampleImages,
   landscapeCarouselConfig
 );
 landscapeCarousel.renderCarousel(0);
@@ -48,7 +37,7 @@ const portraitCarouselLeftConfig = {
 };
 const portraitCarouselLeft = new DriftCarousel(
   "#portrait-carousel-left",
-  images,
+  exampleImages,
   portraitCarouselLeftConfig,
   captions
 );
@@ -63,7 +52,7 @@ const portraitCarouselRightConfig = {
 };
 const portraitCarouselRight = new DriftCarousel(
   "#portrait-carousel-right",
-  images,
+  exampleImages,
   portraitCarouselRightConfig
 );
 portraitCarouselRight.renderCarousel(0);

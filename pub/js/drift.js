@@ -1,6 +1,14 @@
 "use strict";
 
 class DriftCarousel {
+  /**
+   * Drift constructor.
+   *
+   * @param {string} selector - A selector of the root element to mount Drift.
+   * @param {Array} images - The list of image paths for the carousel to render.
+   * @param {Object} [config] - Optional configuration object to override default configuration.
+   * @param {Array} [captions] - Optional list of captions which must be as long as the images array.
+   */
   constructor(selector, images, config, captions) {
     this.parentElement = document.querySelector(selector);
 
@@ -67,6 +75,13 @@ class DriftCarousel {
   }
 
   /** DOM Functions **********************************************************/
+
+  /**
+   * Creates and returns an array of image elements and prepends them to
+   * Drift's parent element.
+   *
+   * @returns Array of image elements.
+   */
   createImages() {
     // Create array of image DOM elements
     const imageElements = this.images.map((image) => {
@@ -90,6 +105,13 @@ class DriftCarousel {
     });
     return imageElements;
   }
+
+  /**
+   * Creates and returns an array of caption elements and prepends them to
+   * Drift's parent element or null if captions are not configured.
+   *
+   * @returns Array of caption elements or null.
+   */
   createCaptions() {
     if (this.config.captions) {
       // Create array of caption DOM elements
@@ -111,6 +133,13 @@ class DriftCarousel {
       return null;
     }
   }
+
+  /**
+   * Creates and returns an array of indicator elements and prepends them to
+   * Drift's parent element.
+   *
+   * @returns Array of indicator elements.
+   */
   createIndicators() {
     const indicatorElements = document.createElement("div");
     indicatorElements.style.position = "absolute";
@@ -139,6 +168,13 @@ class DriftCarousel {
     this.parentElement.prepend(indicatorElements);
     return indicatorElements;
   }
+
+  /**
+   * Creates and returns left and right arrow elements and prepends them to
+   * Drift's parent element.
+   *
+   * @returns Array of left and right arrow elements.
+   */
   createArrows() {
     const arrows = [
       document.createElementNS("http://www.w3.org/2000/svg", "svg"),
@@ -194,19 +230,35 @@ class DriftCarousel {
   }
 
   /** Rendering Functions ****************************************************/
+
+  /**
+   * Renders the image at the given index and starts a timer to render the next
+   * image.
+   *
+   * @param {int} i - The index of the image to render.
+   */
   renderCarousel(i) {
     clearTimeout(this.state.currTimeout);
 
     // Set current image to hidden and next image to visible
-    this.setVisibility(this.state.imageNum, "hidden");
+    this.renderAll(this.state.imageNum, "hidden");
     this.state.imageNum = i;
-    this.setVisibility(this.state.imageNum, "visible");
+    this.renderAll(this.state.imageNum, "visible");
 
     const next = this.getNextImage();
     this.state.currTimeout = setTimeout(() => {
       this.renderCarousel(next);
     }, this.config.transitionTimeout);
   }
+
+  /**
+   * Gets the index of the next image to be rendered by either going left,
+   * right, or random if configured.
+   *
+   * @param {string} [direction] - The direction to update the carousel.
+   *
+   * @returns The index of the next image to be rendered.
+   */
   getNextImage(direction) {
     let next = this.state.imageNum;
     if (direction === "left") {
@@ -226,12 +278,27 @@ class DriftCarousel {
     }
     return next;
   }
-  setVisibility(i, visibility) {
+
+  /**
+   * Renders the image, caption, indicators, and arrows at the given index
+   * based on the given visibility.
+   *
+   * @param {int} i - The index of the elements to render.
+   * @param {string} visibility - The visibility to set the elements.
+   */
+  renderAll(i, visibility) {
     this.renderImages(i, visibility);
     this.renderCaptions(i, visibility);
-    this.renderArrows();
     this.renderIndicators(i, visibility);
+    this.renderArrows();
   }
+
+  /**
+   * Renders the image at the given index based on the given visibility.
+   *
+   * @param {int} i - The index of the image to render.
+   * @param {string} visibility - The visibility to render the image.
+   */
   renderImages(i, visibility) {
     const imageElement = this.imageElements[i];
     if (visibility === "visible") {
@@ -247,6 +314,14 @@ class DriftCarousel {
       imageElement.style.transition = `visibility 0s ${this.config.transitionDuration}ms, opacity ${this.config.transitionDuration}ms`;
     }
   }
+
+  /**
+   * Renders the caption at the given index based on the given visibility and
+   * caption configuration.
+   *
+   * @param {int} i - The index of the caption to render.
+   * @param {string} visibility - The visibility to render the caption.
+   */
   renderCaptions(i, visibility) {
     if (this.config.captions) {
       const captionElement = this.captionElements[i];
@@ -261,6 +336,16 @@ class DriftCarousel {
       }
     }
   }
+
+  /**
+   * Renders the indicator at the given index based on the given visibility and
+   * indicator configuration. If visibility is visible, the indicator is set to
+   * the alternate color scheme. If visibility is hidden, the indicator is set
+   * to the base color scheme.
+   *
+   * @param {int} i - The index of the indicator to render.
+   * @param {string} visibility - The visibility to render the indicator.
+   */
   renderIndicators(i, visibility) {
     if (this.config.indicators) {
       this.indicatorElements.style.visibility = "visible";
@@ -278,6 +363,10 @@ class DriftCarousel {
       this.indicatorElements.style.visibility = "hidden";
     }
   }
+
+  /**
+   * Render the arrows based on the arrow configuration.
+   */
   renderArrows() {
     if (this.config.arrows) {
       this.leftArrow.style.visibility = "visible";
@@ -289,26 +378,68 @@ class DriftCarousel {
   }
 
   /** Configuration Functions ************************************************/
+
+  /**
+   * Sets the transition timeout configuration.
+   *
+   * @param {int} transitionTimeout - The transition timeout.
+   */
   setTransitionTimeout(transitionTimeout) {
     // Time in between images
     this.config.transitionTimeout = transitionTimeout;
   }
+
+  /**
+   * Sets the transition duration configuration.
+   *
+   * @param {int} transitionDuration - The transition duration.
+   */
   setTransitionDuration(transitionDuration) {
     // Duration of image transition
     this.config.transitionDuration = transitionDuration;
   }
+
+  /**
+   * Sets the random ordering configuration.
+   *
+   * @param {boolean} toggle - Whether or not to use a random ordering.
+   */
   setRandom(toggle) {
     this.config.random = toggle;
   }
+
+  /**
+   * Sets the image brightness configuration.
+   *
+   * @param {int} brightness - The carousel image brightness.
+   */
   setBrightness(brightness) {
     this.config.brightness = brightness;
   }
+
+  /**
+   * Sets the image opacity configuration.
+   *
+   * @param {int} opacity - The carousel image opacity.
+   */
   setOpacity(opacity) {
     this.config.opacity = opacity;
   }
+
+  /**
+   * Sets the indicators configuration.
+   *
+   * @param {boolean} toggle - Whether or not to use indicators.
+   */
   setIndicators(toggle) {
     this.config.indicators = toggle;
   }
+
+  /**
+   * Sets the arrows configuration.
+   *
+   * @param {boolean} toggle - Whether or not to use arrows.
+   */
   setArrows(toggle) {
     this.config.arrows = toggle;
   }
