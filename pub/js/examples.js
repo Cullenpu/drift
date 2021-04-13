@@ -9,22 +9,24 @@ const exampleImages = [
 ];
 
 const captions = [
-  "Caption 1",
-  "Caption 2",
-  "Caption 3",
-  "Caption 4",
-  "Caption 5",
+  "Golden Gate Bridge, San Francisco, CA",
+  "Horshoe Bay - Nanaimo, Vancouver, BC",
+  "Summer Nights, Toronto, ON",
+  "720S, Boston, MA",
+  "Fort Point, Boston, MA",
 ];
 
 const landscapeCarouselConfig = {
   transitionTimeout: 3000,
   transitionDuration: 2000,
   opacity: 0.5,
+  captions: true,
 };
 const landscapeCarousel = new DriftCarousel(
   "#landscape-carousel",
   exampleImages,
-  landscapeCarouselConfig
+  landscapeCarouselConfig,
+  captions
 );
 landscapeCarousel.renderCarousel(0);
 
@@ -47,7 +49,6 @@ portraitCarouselLeft.renderCarousel(0);
 const portraitCarouselRightConfig = {
   transitionTimeout: 3000,
   brightness: 0.55,
-  opacity: 0.7,
   indicators: false,
 };
 const portraitCarouselRight = new DriftCarousel(

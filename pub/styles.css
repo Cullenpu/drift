@@ -55,6 +55,33 @@ body {
   color: rgb(158, 158, 158);
 }
 
+/** Navbar *******************************************************************/
+.nav {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  overflow: hidden;
+  background-color: rgb(44, 44, 44);
+}
+
+.nav-item {
+  display: block;
+  padding: 16px 20px;
+  float: left;
+}
+
+.nav-item a {
+  color: var(--landing-text-color);
+  text-align: center;
+  text-decoration: none;
+  font-size: 14px;
+  transition-duration: 0.2s;
+}
+
+.nav-item a:hover {
+  color: rgb(139, 139, 139);
+}
+
 /** Examples page ************************************************************/
 .section-header {
   margin: 20px 0;
@@ -104,6 +131,10 @@ body {
   margin: 0 5px;
   width: 450px;
   height: 600px;
+}
+
+#portrait-carousel-right {
+  color: var(--landing-text-color);
 }
 
 .portrait-carousel-text {
