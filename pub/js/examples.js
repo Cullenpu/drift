@@ -16,6 +16,9 @@ const captions = [
   "Fort Point, Boston, MA",
 ];
 
+const defaultCarousel = new DriftCarousel("#default-carousel", exampleImages);
+defaultCarousel.renderCarousel(0);
+
 const landscapeCarouselConfig = {
   transitionTimeout: 3000,
   transitionDuration: 2000,

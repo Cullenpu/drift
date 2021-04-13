@@ -3,7 +3,8 @@
   <head>
     <title>Drift</title>
 
-    <link rel="stylesheet" href="styles.css" />
+    <link rel="stylesheet" href="./styles.css" />
+    <link rel="stylesheet" href="./examplesStyles.css" />
     <link rel="preconnect" href="https://fonts.gstatic.com" />
     <link
       href="https://fonts.googleapis.com/css2?family=Merriweather&display=swap"
@@ -17,81 +18,115 @@
   <body>
     <ul class="nav">
       <li class="nav-item"><a href="./landing.html">Home</a></li>
-      <li class="nav-item"><a href="#">Documentation</a></li>
+      <li class="nav-item"><a href="./examples.html">Examples</a></li>
+      <li class="nav-item"><a href="./documentation.html">Documentation</a></li>
     </ul>
 
-    <h1 class="section-header">Original Images</h1>
-    <div class="demo-image-row">
-      <div class="demo-image-container">
-        <img src="res/example/img1.jpg" class="demo-image" />
-        <p class="margin-5">Image 1</p>
-      </div>
-      <div class="demo-image-container">
-        <img src="res/example/img2.jpg" class="demo-image" />
-        <p class="margin-5">Image 2</p>
-      </div>
-      <div class="demo-image-container">
-        <img src="res/example/img3.jpg" class="demo-image" />
-        <p class="margin-5">Image 3</p>
-      </div>
-      <div class="demo-image-container">
-        <img src="res/example/img4.jpg" class="demo-image" />
-        <p class="margin-5">Image 4</p>
-      </div>
-      <div class="demo-image-container">
-        <img src="res/example/img5.jpg" class="demo-image" />
-        <p class="margin-5">Image 5</p>
-      </div>
-    </div>
+    <div class="content">
+      <h2 class="page-header">Examples</h2>
 
-    <div id="landscape-carousel">
-      <h1 class="section-header">Landscape Orientation</h1>
-      <div class="landscape-carousel-text">
-        <p class="margin-5">Configuration:</p>
-        <ul class="margin-5">
-          <li>Transition Timeout: 3s</li>
-          <li>Transition Duration: 2s</li>
-          <li>Random: false (default)</li>
-          <li>Brightness: 1 (default)</li>
-          <li>Opacity: 0.5</li>
-          <li>Captions: true</li>
-          <li>Indicators: true (default)</li>
-          <li>Arrows: true (default)</li>
-        </ul>
+      <div>
+        <h2 class="section-header">Default Configuration</h2>
+        <pre class="code">
+<code>
+   drift.config = {
+      transitionTimeout: 5000,
+      transitionDuration: 1000,
+      random: false,
+      brightness: 1,
+      opacity: 1,
+      captions: false,
+      indicators: true,
+      arrows: true,
+   };
+</code>
+</pre>
+        The only things Drift requires are a selector and an array of images.
+        <pre class="code">
+<code>
+   const defaultCarousel = new DriftCarousel("#default-carousel", exampleImages);
+   defaultCarousel.renderCarousel(0);
+</code>
+</pre>
+        <div id="default-carousel">
+          <code class="margin-5">#default-carousel</code>
+        </div>
       </div>
-    </div>
 
-    <h1 class="section-header">Portrait Orientation</h1>
-    <div class="portrait-carousel-container">
-      <div id="portrait-carousel-left" class="portrait-carousel">
-        <div class="portrait-carousel-text">
-          <p class="margin-5">Configuration:</p>
+      <h2 class="section-header">Landscape Carousel</h2>
+      <div id="landscape-carousel">
+        <h2 class="section-header">Landscape Orientation</h2>
+        <div class="landscape-carousel-text">
+          <p>Configuration:</p>
           <ul class="margin-5">
             <li>Transition Timeout: 3s</li>
-            <li>Transition Duration: 1s (default)</li>
-            <li>Random: true</li>
+            <li>Transition Duration: 2s</li>
+            <li>Random: false (default)</li>
             <li>Brightness: 1 (default)</li>
-            <li>Opacity: 1 (default)</li>
+            <li>Opacity: 0.5</li>
             <li>Captions: true</li>
             <li>Indicators: true (default)</li>
-            <li>Arrows: false</li>
+            <li>Arrows: true (default)</li>
           </ul>
         </div>
       </div>
 
-      <div id="portrait-carousel-right" class="portrait-carousel">
-        <div class="portrait-carousel-text">
-          <p class="margin-5">Configuration:</p>
-          <ul class="margin-5">
-            <li>Transition Timeout: 3s</li>
-            <li>Transition Duration: 1s (default)</li>
-            <li>Random: false (default)</li>
-            <li>Brightness: 0.55</li>
-            <li>Opacity: 1 (default)</li>
-            <li>Captions: false (default)</li>
-            <li>Indicators: false</li>
-            <li>Arrows: true (default)</li>
-          </ul>
+      <h2 class="section-header">Portrait Orientation</h2>
+      <div class="portrait-carousel-container">
+        <div id="portrait-carousel-left" class="portrait-carousel">
+          <div class="portrait-carousel-text">
+            <p>Configuration:</p>
+            <ul class="margin-5">
+              <li>Transition Timeout: 3s</li>
+              <li>Transition Duration: 1s (default)</li>
+              <li>Random: true</li>
+              <li>Brightness: 1 (default)</li>
+              <li>Opacity: 1 (default)</li>
+              <li>Captions: true</li>
+              <li>Indicators: true (default)</li>
+              <li>Arrows: false</li>
+            </ul>
+          </div>
+        </div>
+
+        <div id="portrait-carousel-right" class="portrait-carousel">
+          <div class="portrait-carousel-text">
+            <p>Configuration:</p>
+            <ul class="margin-5">
+              <li>Transition Timeout: 3s</li>
+              <li>Transition Duration: 1s (default)</li>
+              <li>Random: false (default)</li>
+              <li>Brightness: 0.55</li>
+              <li>Opacity: 1 (default)</li>
+              <li>Captions: false (default)</li>
+              <li>Indicators: false</li>
+              <li>Arrows: true (default)</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <h2 class="section-header">Example Images</h2>
+      <div class="example-image-row">
+        <div class="example-image-container">
+          <img src="res/example/img1.jpg" class="example-image" />
+          <p>Image 1</p>
+        </div>
+        <div class="example-image-container">
+          <img src="res/example/img2.jpg" class="example-image" />
+          <p>Image 2</p>
+        </div>
+        <div class="example-image-container">
+          <img src="res/example/img3.jpg" class="example-image" />
+          <p>Image 3</p>
+        </div>
+        <div class="example-image-container">
+          <img src="res/example/img4.jpg" class="example-image" />
+          <p>Image 4</p>
+        </div>
+        <div class="example-image-container">
+          <img src="res/example/img5.jpg" class="example-image" />
+          <p>Image 5</p>
         </div>
       </div>
     </div>

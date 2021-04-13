@@ -1,0 +1,58 @@
+/** Default Carousel *********************************************************/
+#default-carousel {
+  width: 450px;
+  height: 300px;
+}
+
+/** Landscape Carousel *******************************************************/
+#landscape-carousel {
+  width: 100%;
+  height: 400px;
+  margin: 0;
+}
+
+.landscape-carousel-text {
+  margin: 0 30%;
+}
+
+/** Portrait Carousel ********************************************************/
+.portrait-carousel-container {
+  display: flex;
+  margin: 0 0 50px 0;
+  padding: 0;
+  justify-content: center;
+}
+
+.portrait-carousel {
+  margin: 0 5px;
+  width: 450px;
+  height: 600px;
+}
+
+#portrait-carousel-right {
+  color: var(--landing-text-color);
+}
+
+.portrait-carousel-text {
+  margin: 20px 20px;
+}
+
+/** Example images ***********************************************************/
+.example-image-container {
+  display: inline-block;
+  width: 19vw;
+  margin: 0 0 30px 0;
+  padding: 0;
+}
+
+.example-image-row {
+  display: flex;
+  margin: 0;
+  padding: 0;
+  justify-content: space-evenly;
+  align-items: flex-end;
+}
+
+.example-image {
+  width: 100%;
+}

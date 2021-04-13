@@ -9,7 +9,7 @@ const path = require("path");
 app.use(express.static(path.join(__dirname, "/pub")));
 
 app.get("/", (req, res) => {
-  res.send("<h1>Root route</h1>");
+  res.send("<p>Root route</p>");
 });
 
 // Use environment variable process.env.PORT for deployment
