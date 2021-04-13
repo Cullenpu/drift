@@ -22,14 +22,13 @@ defaultCarousel.renderCarousel(0);
 const landscapeCarouselConfig = {
   transitionTimeout: 3000,
   transitionDuration: 2000,
+  random: true,
   opacity: 0.5,
-  captions: true,
 };
 const landscapeCarousel = new DriftCarousel(
   "#landscape-carousel",
   exampleImages,
-  landscapeCarouselConfig,
-  captions
+  landscapeCarouselConfig
 );
 landscapeCarousel.renderCarousel(0);
 

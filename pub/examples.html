@@ -16,11 +16,16 @@
   </head>
 
   <body>
-    <ul class="nav">
-      <li class="nav-item"><a href="./landing.html">Home</a></li>
-      <li class="nav-item"><a href="./examples.html">Examples</a></li>
-      <li class="nav-item"><a href="./documentation.html">Documentation</a></li>
-    </ul>
+    <nav>
+      <a href="./landing.html"
+        ><img src="res/logo/drift-white.svg" alt="drift" class="logo"
+      /></a>
+      <div>
+        <a href="./landing.html" class="nav-item">Home</a>
+        <a href="./examples.html" class="nav-item">Examples</a>
+        <a href="./documentation.html" class="nav-item">Documentation</a>
+      </div>
+    </nav>
 
     <div class="content">
       <h2 class="page-header">Examples</h2>
@@ -29,7 +34,7 @@
         <h2 class="section-header">Default Configuration</h2>
         <pre class="code">
 <code>
-   drift.config = {
+   DriftCarousel.config = {
       transitionTimeout: 5000,
       transitionDuration: 1000,
       random: false,
@@ -53,29 +58,91 @@
         </div>
       </div>
 
-      <h2 class="section-header">Landscape Carousel</h2>
+      <h2 class="section-header">Custom Configuration</h2>
+      Any of the default configuration options can be overwritten by passing in
+      a configuration object.
+      <pre class="code">
+<code>
+   const landscapeCarouselConfig = {
+      transitionTimeout: 3000,
+      transitionDuration: 2000,
+      random: true,
+      opacity: 0.5,
+   };
+
+   const landscapeCarousel = new DriftCarousel(
+      "#landscape-carousel",
+      exampleImages,
+      landscapeCarouselConfig
+   );
+   landscapeCarousel.renderCarousel(0);
+</code>
+</pre>
       <div id="landscape-carousel">
-        <h2 class="section-header">Landscape Orientation</h2>
+        <code class="margin-5">#landscape-carousel</code>
         <div class="landscape-carousel-text">
-          <p>Configuration:</p>
+          <p>Full Configuration:</p>
           <ul class="margin-5">
             <li>Transition Timeout: 3s</li>
             <li>Transition Duration: 2s</li>
-            <li>Random: false (default)</li>
+            <li>Random: true</li>
             <li>Brightness: 1 (default)</li>
             <li>Opacity: 0.5</li>
-            <li>Captions: true</li>
+            <li>Captions: false (default)</li>
             <li>Indicators: true (default)</li>
             <li>Arrows: true (default)</li>
           </ul>
         </div>
       </div>
 
-      <h2 class="section-header">Portrait Orientation</h2>
+      <h2 class="section-header">Image Orientation & Captions</h2>
+      Images are automatically sized to fully cover the carousel without
+      warping.
+      <br />
+      Captions can contain HTML elements to allow for more flexibility in
+      styling.
+      <pre class="code">
+<code>
+   /** Left Carousel *************************************/
+
+   const portraitCarouselLeftConfig = {
+      transitionTimeout: 3000,
+      random: true,
+      captions: true,
+      arrows: false,
+   };
+   const portraitCarouselLeft = new DriftCarousel(
+      "#portrait-carousel-left",
+      exampleImages,
+      portraitCarouselLeftConfig,
+      captions
+   );
+   portraitCarouselLeft.renderCarousel(0);
+</code>
+</pre>
+
+      <pre class="code">
+<code>
+   /** Right Carousel *************************************/
+
+   const portraitCarouselRightConfig = {
+      transitionTimeout: 3000,
+      brightness: 0.55,
+      indicators: false,
+   };
+   const portraitCarouselRight = new DriftCarousel(
+      "#portrait-carousel-right",
+      exampleImages,
+      portraitCarouselRightConfig
+   );
+   portraitCarouselRight.renderCarousel(0);
+</code>
+</pre>
       <div class="portrait-carousel-container">
         <div id="portrait-carousel-left" class="portrait-carousel">
+          <code class="margin-5">#portrait-carousel-left</code>
           <div class="portrait-carousel-text">
-            <p>Configuration:</p>
+            <p>Full Configuration:</p>
             <ul class="margin-5">
               <li>Transition Timeout: 3s</li>
               <li>Transition Duration: 1s (default)</li>
@@ -90,8 +157,9 @@
         </div>
 
         <div id="portrait-carousel-right" class="portrait-carousel">
+          <code class="margin-5">#portrait-carousel-right</code>
           <div class="portrait-carousel-text">
-            <p>Configuration:</p>
+            <p>Full Configuration:</p>
             <ul class="margin-5">
               <li>Transition Timeout: 3s</li>
               <li>Transition Duration: 1s (default)</li>

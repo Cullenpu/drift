@@ -41,28 +41,36 @@ p {
 }
 
 /** Navbar *******************************************************************/
-.nav {
-  margin: 0;
-  padding: 0;
-  list-style: none;
-  overflow: hidden;
+nav {
+  height: 60px;
   background-color: rgb(66, 179, 255);
 }
 
-.nav-item {
-  display: block;
-  padding: 16px 20px;
-  float: left;
-}
-
-.nav-item a {
-  color: white;
-  text-align: center;
-  text-decoration: none;
-  font-size: 14px;
+.logo {
+  display: inline-block;
+  margin: 10px 20px;
+  height: 40px;
   transition-duration: 0.2s;
 }
 
-.nav-item a:hover {
+.logo:hover {
+  filter: brightness(80%);
+}
+
+nav div {
+  float: right;
+}
+
+.nav-item {
+  display: inline-block;
+  padding: 20px 20px 20px 0;
+  color: white;
+  text-align: center;
+  text-decoration: none;
+  font-size: 16px;
+  transition-duration: 0.2s;
+}
+
+.nav-item:hover {
   color: rgb(204, 204, 204);
 }
