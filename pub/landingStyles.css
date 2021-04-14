@@ -21,7 +21,7 @@ button {
 
   background-color: rgba(0, 0, 0, 0);
   border: 1.5px solid var(--landing-text-color);
-  border-radius: 5px;
+  border-radius: 50px;
 
   color: var(--landing-text-color);
   text-align: center;

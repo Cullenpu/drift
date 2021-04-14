@@ -36,14 +36,13 @@ landscapeCarousel.renderCarousel(0);
 const portraitCarouselLeftConfig = {
   transitionTimeout: 3000,
   random: true,
-  captions: true,
+  captions: captions,
   arrows: false,
 };
 const portraitCarouselLeft = new DriftCarousel(
   "#portrait-carousel-left",
   exampleImages,
-  portraitCarouselLeftConfig,
-  captions
+  portraitCarouselLeftConfig
 );
 portraitCarouselLeft.renderCarousel(0);
 

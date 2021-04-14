@@ -7,9 +7,8 @@ class DriftCarousel {
    * @param {string} selector - A selector of the root element to mount Drift.
    * @param {Array} images - The list of image paths for the carousel to render.
    * @param {Object} [config] - Optional configuration object to override default configuration.
-   * @param {Array} [captions] - Optional list of captions which must be as long as the images array.
    */
-  constructor(selector, images, config, captions) {
+  constructor(selector, images, config) {
     this.parentElement = document.querySelector(selector);
 
     /** Set parent element styles */
@@ -41,15 +40,23 @@ class DriftCarousel {
       random: false,
       brightness: 1,
       opacity: 1,
-      captions: false,
+      captions: null,
       indicators: true,
       arrows: true,
     };
 
     if (config) {
       // Update with user configuration
-      // TODO: validate captions array length
       this.config = { ...this.config, ...config };
+
+      // If captions are specified, they must be the same length as the images array
+      if (
+        this.config.captions &&
+        this.config.captions.length !== images.length
+      ) {
+        console.log("Captions length different from images length!");
+        this.config.captions = null;
+      }
     }
 
     /** DOM related objects */
@@ -58,9 +65,6 @@ class DriftCarousel {
 
     // List of carousel image DOM elements
     this.imageElements = this.createImages();
-
-    // Optional list of image captions
-    this.captions = captions;
 
     // List of caption DOM elements
     this.captionElements = this.createCaptions();
@@ -115,7 +119,7 @@ class DriftCarousel {
   createCaptions() {
     if (this.config.captions) {
       // Create array of caption DOM elements
-      const captionElements = this.captions.map((caption) => {
+      const captionElements = this.config.captions.map((caption) => {
         const captionElement = document.createElement("p");
         captionElement.style.margin = "2px";
         captionElement.style.position = "absolute";
@@ -301,6 +305,10 @@ class DriftCarousel {
    */
   renderImages(i, visibility) {
     const imageElement = this.imageElements[i];
+    // Check if captions were changed since last render
+    imageElement.style.height = this.config.captions
+      ? "calc(100% - 14px)"
+      : "100%";
     if (visibility === "visible") {
       imageElement.style.visibility = "visible";
       imageElement.style.filter = `brightness(${
@@ -348,6 +356,10 @@ class DriftCarousel {
    */
   renderIndicators(i, visibility) {
     if (this.config.indicators) {
+      // Check if captions were changed since last render
+      this.indicatorElements.style.bottom = this.config.captions
+        ? "24px"
+        : "10px";
       this.indicatorElements.style.visibility = "visible";
       const indicatorElement = this.indicatorElements.children[i];
       if (visibility === "visible") {
@@ -424,6 +436,21 @@ class DriftCarousel {
    */
   setOpacity(opacity) {
     this.config.opacity = opacity;
+  }
+
+  /**
+   * Sets the captions to the array if specified or removes them if null is
+   * passed.
+   *
+   * @param {array} [captions] - An array of captions or null.
+   */
+  setCaptions(captions) {
+    if (captions.length === this.images.length) {
+      this.config.captions = captions;
+    } else {
+      this.config.captions = null;
+    }
+    this.captionElements = this.createCaptions();
   }
 
   /**
