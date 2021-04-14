@@ -112,13 +112,13 @@
           <td><code class="code-block">brightness</code></td>
           <td>Number</td>
           <td><code class="code-block">1</code></td>
-          <td><p>The carousel brightness, between 0 and 1.</p></td>
+          <td><p>The carousel image brightness, between 0 and 1.</p></td>
         </tr>
         <tr>
           <td><code class="code-block">opacity</code></td>
           <td>Number</td>
           <td><code class="code-block">1</code></td>
-          <td><p>The carousel opacity, between 0 and 1.</p></td>
+          <td><p>The carousel image opacity, between 0 and 1.</p></td>
         </tr>
         <tr>
           <td><code class="code-block">captions</code></td>
@@ -127,9 +127,10 @@
           <td>
             <p>
               An array of strings corresponding to the list of images passed in
-              the constructor. The lengths of the captions and images arrays
-              <strong>must</strong> match. HTML can also be used in the caption
-              strings for greater flexibility such as links and text formatting.
+              the constructor. The length of the array
+              <strong>must</strong> be the same as the number of images in the
+              carousel. HTML can also be used in the caption strings for greater
+              flexibility such as links and text formatting.
             </p>
           </td>
         </tr>
@@ -146,6 +147,68 @@
           <td><p>If the arrows are shown.</p></td>
         </tr>
       </table>
+
+      <h2 class="section-header">API Methods</h2>
+
+      <code class="method">.renderCarousel(i)</code>
+      <p>
+        This must be called to render the carousel. It will start with the image
+        at index <code class="code-block">i</code>.
+      </p>
+      <br />
+      <p>
+        Drift provides an alternate way to set the configuration through the
+        given API methods.
+      </p>
+
+      <code class="method">.setTransitionTimeout(transitionTimeout)</code>
+      <p>
+        Sets the transition timeout configuration to
+        <code class="code-block">transitionTimeout</code>.
+      </p>
+
+      <code class="method">.setTransitionDuration(transitionDuration)</code>
+      <p>
+        Sets the transition duration configuration to
+        <code class="code-block">transitionDuration</code>.
+      </p>
+
+      <code class="method">.setRandom(toggle)</code>
+      <p>
+        Sets the random ordering configuration to
+        <code class="code-block">toggle</code>.
+      </p>
+
+      <code class="method">.setBrightness(brightness)</code>
+      <p>
+        Sets the image brightness configuration to
+        <code class="code-block">brightness</code>.
+      </p>
+
+      <code class="method">.setOpacity(opacity)</code>
+      <p>
+        Sets the image opacity configuration to
+        <code class="code-block">opacity</code>.
+      </p>
+
+      <code class="method">.setCaptions(captions)</code>
+      <p>
+        Sets the captions to the <code class="code-block">captions</code> array
+        if specified or removes them altogether if null is passed. Like before,
+        if captions are being set, the length of the array must be equal to the
+        number of images in the carousel.
+      </p>
+
+      <code class="method">.setIndicators(toggle)</code>
+      <p>
+        Sets the indicators configuration to
+        <code class="code-block">toggle</code>
+      </p>
+
+      <code class="method">.setArrows(toggle)</code>
+      <p>
+        Sets the arrows configuration to <code class="code-block">toggle</code>.
+      </p>
     </div>
   </body>
 </html>
