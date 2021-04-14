@@ -1,9 +1,12 @@
 :root {
-  --landing-text-color: rgb(231, 231, 231);
+  --light-gray: rgb(238, 238, 238);
+  --medium-gray: rgb(204, 204, 204);
+  --dark-gray: rgb(158, 158, 158);
 }
 
 html {
-  font-family: "Merriweather", Arial, Helvetica, sans-serif;
+  font-family: "Noto Sans KR", Arial, Helvetica, sans-serif;
+  font-size: 14px;
 }
 
 body {
@@ -11,7 +14,8 @@ body {
 }
 
 p {
-  margin: 5px 0;
+  margin: 0;
+  line-height: 1.5;
 }
 
 .margin-5 {
@@ -23,21 +27,25 @@ p {
 }
 
 .page-header {
-  margin: 20px 0;
+  margin: 20px 0 0 0;
   padding: 0;
   font-size: 2.25em;
   font-weight: 400;
 }
 
 .section-header {
-  margin: 40px 0 10px 0;
+  margin: 20px 0 10px 0;
   padding: 0;
   font-size: 1.5em;
   font-weight: 400;
 }
 
-.code {
-  background-color: rgb(238, 238, 238);
+.code-block {
+  background-color: var(--light-gray);
+}
+
+code {
+  font-size: 12px;
 }
 
 /** Navbar *******************************************************************/
@@ -63,7 +71,7 @@ nav div {
 
 .nav-item {
   display: inline-block;
-  padding: 20px 20px 20px 0;
+  padding: 18.5px 20px 18.5px 0;
   color: white;
   text-align: center;
   text-decoration: none;
@@ -72,5 +80,5 @@ nav div {
 }
 
 .nav-item:hover {
-  color: rgb(204, 204, 204);
+  color: var(--medium-gray);
 }

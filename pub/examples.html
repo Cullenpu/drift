@@ -7,7 +7,7 @@
     <link rel="stylesheet" href="./examplesStyles.css" />
     <link rel="preconnect" href="https://fonts.gstatic.com" />
     <link
-      href="https://fonts.googleapis.com/css2?family=Merriweather&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR&display=swap"
       rel="stylesheet"
     />
 
@@ -17,11 +17,11 @@
 
   <body>
     <nav>
-      <a href="./landing.html"
+      <a href="/"
         ><img src="res/logo/drift-white.svg" alt="drift" class="logo"
       /></a>
       <div>
-        <a href="./landing.html" class="nav-item">Home</a>
+        <a href="/" class="nav-item">Home</a>
         <a href="./examples.html" class="nav-item">Examples</a>
         <a href="./api.html" class="nav-item">API</a>
       </div>
@@ -32,7 +32,7 @@
 
       <div>
         <h2 class="section-header">Default Configuration</h2>
-        <pre class="code">
+        <pre class="code-block">
 <code>
    DriftCarousel.config = {
       transitionTimeout: 5000,
@@ -46,8 +46,10 @@
    };
 </code>
 </pre>
-        The only things Drift requires are a selector and an array of images.
-        <pre class="code">
+        <p>
+          The only things Drift requires are a selector and an array of images.
+        </p>
+        <pre class="code-block">
 <code>
    const defaultCarousel = new DriftCarousel("#default-carousel", exampleImages);
    defaultCarousel.renderCarousel(0);
@@ -59,9 +61,11 @@
       </div>
 
       <h2 class="section-header">Custom Configuration</h2>
-      Any of the default configuration options can be overwritten by passing in
-      a configuration object.
-      <pre class="code">
+      <p>
+        Any of the default configuration options can be overwritten by passing
+        in a configuration object.
+      </p>
+      <pre class="code-block">
 <code>
    const landscapeCarouselConfig = {
       transitionTimeout: 3000,
@@ -96,12 +100,15 @@
       </div>
 
       <h2 class="section-header">Image Orientation & Captions</h2>
-      Images are automatically sized to fully cover the carousel without
-      warping.
-      <br />
-      Captions can contain HTML elements to allow for more flexibility in
-      styling.
-      <pre class="code">
+      <p>
+        Images are automatically sized to fully cover the carousel without
+        warping.
+      </p>
+      <p>
+        Captions can contain HTML elements to allow for more flexibility in
+        styling.
+      </p>
+      <pre class="code-block">
 <code>
    /** Left Carousel *************************************/
 
@@ -120,7 +127,7 @@
 </code>
 </pre>
 
-      <pre class="code">
+      <pre class="code-block">
 <code>
    /** Right Carousel *************************************/
 

@@ -1,0 +1,29 @@
+code {
+  padding: 2px;
+}
+
+table {
+  margin: 0;
+  width: 100%;
+  border-collapse: collapse;
+}
+
+tr {
+  border-bottom: 1px solid var(--medium-gray);
+}
+
+th {
+  padding: 15px 10% 15px 0;
+  /* width: 10%; */
+  text-align: left;
+}
+
+td {
+  padding: 15px 0;
+  text-align: left;
+}
+
+.optional {
+  color: rgb(66, 66, 66);
+  font-size: 0.85em;
+}

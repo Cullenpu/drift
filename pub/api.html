@@ -4,9 +4,10 @@
     <title>Drift</title>
 
     <link rel="stylesheet" href="./styles.css" />
+    <link rel="stylesheet" href="./apiStyles.css" />
     <link rel="preconnect" href="https://fonts.gstatic.com" />
     <link
-      href="https://fonts.googleapis.com/css2?family=Merriweather&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR&display=swap"
       rel="stylesheet"
     />
 
@@ -15,14 +16,135 @@
 
   <body>
     <nav>
-      <a href="./landing.html"
+      <a href="/"
         ><img src="res/logo/drift-white.svg" alt="drift" class="logo"
       /></a>
       <div>
-        <a href="./landing.html" class="nav-item">Home</a>
+        <a href="/" class="nav-item">Home</a>
         <a href="./examples.html" class="nav-item">Examples</a>
         <a href="./api.html" class="nav-item">API</a>
       </div>
     </nav>
+
+    <div class="content">
+      <h2 class="page-header">API</h2>
+
+      <h2 class="section-header">Constructor</h2>
+      <code class="code-block"
+        >const drift = DriftCarousel(selector, images, config)</code
+      >
+      <table>
+        <tr>
+          <th>Property</th>
+          <th>Type</th>
+          <th>Description</th>
+        </tr>
+        <tr>
+          <td><code class="code-block">selector</code></td>
+          <td>String</td>
+          <td><p>A selector of the root element to mount Drift.</p></td>
+        </tr>
+        <tr>
+          <td><code class="code-block">images</code></td>
+          <td>Array</td>
+          <td><p>The list of image paths for the carousel to render.</p></td>
+        </tr>
+        <tr>
+          <td>
+            <code class="code-block">config</code>
+            <span class="optional">(optional)</span>
+          </td>
+          <td>Object</td>
+          <td>
+            <p>
+              Optional configuration object to override default configuration.
+            </p>
+          </td>
+        </tr>
+      </table>
+
+      <h2 class="section-header">Configuration Object</h2>
+      <p>
+        Configuration options can be set by passing in a configuration object
+        with the desired properties. Only the properties to be changed need to
+        be included in the object.
+      </p>
+      <table>
+        <tr>
+          <th>Property</th>
+          <th>Type</th>
+          <th>Default</th>
+          <th>Description</th>
+        </tr>
+        <tr>
+          <td><code class="code-block">transitionTimeout</code></td>
+          <td>Number</td>
+          <td><code class="code-block">5000</code></td>
+          <td>
+            <p>
+              The time in milliseconds each image is shown before switching to
+              the next image.
+            </p>
+          </td>
+        </tr>
+        <tr>
+          <td><code class="code-block">transitionDuration</code></td>
+          <td>Number</td>
+          <td><code class="code-block">1000</code></td>
+          <td>
+            <p>The time in milliseconds each carousel transition takes.</p>
+          </td>
+        </tr>
+        <tr>
+          <td><code class="code-block">random</code></td>
+          <td>Boolean</td>
+          <td><code class="code-block">false</code></td>
+          <td>
+            <p>
+              If the carousel randomly picks images when switching. If set to
+              <code class="code-block">false</code>, the carousel advances in
+              the order of the images array used in the constructor.
+            </p>
+          </td>
+        </tr>
+        <tr>
+          <td><code class="code-block">brightness</code></td>
+          <td>Number</td>
+          <td><code class="code-block">1</code></td>
+          <td><p>The carousel brightness, between 0 and 1.</p></td>
+        </tr>
+        <tr>
+          <td><code class="code-block">opacity</code></td>
+          <td>Number</td>
+          <td><code class="code-block">1</code></td>
+          <td><p>The carousel opacity, between 0 and 1.</p></td>
+        </tr>
+        <tr>
+          <td><code class="code-block">captions</code></td>
+          <td>Array</td>
+          <td><code class="code-block">null</code></td>
+          <td>
+            <p>
+              An array of strings corresponding to the list of images passed in
+              the constructor. The lengths of the captions and images arrays
+              <strong>must</strong> match. HTML can also be used in the caption
+              strings for greater flexibility such as links and text formatting.
+            </p>
+          </td>
+        </tr>
+        <tr>
+          <td><code class="code-block">indicators</code></td>
+          <td>Boolean</td>
+          <td><code class="code-block">true</code></td>
+          <td><p>If the bottom indicators are show.</p></td>
+        </tr>
+        <tr>
+          <td><code class="code-block">arrows</code></td>
+          <td>Boolean</td>
+          <td><code class="code-block">true</code></td>
+          <td><p>If the arrows are shown.</p></td>
+        </tr>
+      </table>
+    </div>
   </body>
 </html>

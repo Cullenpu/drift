@@ -13,10 +13,9 @@ class DriftCarousel {
 
     /** Set parent element styles */
     const origPosition = this.parentElement.style.position;
-    console.log("Original parent position: ", origPosition);
     if (!origPosition || origPosition === "static") {
       // Parent element must be relaitve for image to be properly sized
-      console.log("Set parent position to relaitve");
+      console.log(`Set ${selector} position to relative`);
       this.parentElement.style.position = "relative";
     }
     this.parentElement.style.overflow = "hidden";
