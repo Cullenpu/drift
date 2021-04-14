@@ -1,6 +1,6 @@
 "use strict";
 
-class DriftCarousel {
+class Drift {
   /**
    * Drift constructor.
    *

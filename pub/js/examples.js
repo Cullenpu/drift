@@ -16,7 +16,7 @@ const captions = [
   "Fort Point, Boston, MA",
 ];
 
-const defaultCarousel = new DriftCarousel("#default-carousel", exampleImages);
+const defaultCarousel = new Drift("#default-carousel", exampleImages);
 defaultCarousel.renderCarousel(0);
 
 const landscapeCarouselConfig = {
@@ -25,7 +25,7 @@ const landscapeCarouselConfig = {
   random: true,
   opacity: 0.5,
 };
-const landscapeCarousel = new DriftCarousel(
+const landscapeCarousel = new Drift(
   "#landscape-carousel",
   exampleImages,
   landscapeCarouselConfig
@@ -39,7 +39,7 @@ const portraitCarouselLeftConfig = {
   captions: captions,
   arrows: false,
 };
-const portraitCarouselLeft = new DriftCarousel(
+const portraitCarouselLeft = new Drift(
   "#portrait-carousel-left",
   exampleImages,
   portraitCarouselLeftConfig
@@ -52,7 +52,7 @@ const portraitCarouselRightConfig = {
   brightness: 0.55,
   indicators: false,
 };
-const portraitCarouselRight = new DriftCarousel(
+const portraitCarouselRight = new Drift(
   "#portrait-carousel-right",
   exampleImages,
   portraitCarouselRightConfig

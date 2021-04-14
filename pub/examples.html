@@ -34,7 +34,7 @@
         <h2 class="section-header">Default Configuration</h2>
         <pre class="code-block">
 <code>
-   DriftCarousel.config = {
+   Drift.config = {
       transitionTimeout: 5000,
       transitionDuration: 1000,
       random: false,
@@ -51,7 +51,7 @@
         </p>
         <pre class="code-block">
 <code>
-   const defaultCarousel = new DriftCarousel("#default-carousel", exampleImages);
+   const defaultCarousel = new Drift("#default-carousel", exampleImages);
    defaultCarousel.renderCarousel(0);
 </code>
 </pre>
@@ -74,7 +74,7 @@
       opacity: 0.5,
    };
 
-   const landscapeCarousel = new DriftCarousel(
+   const landscapeCarousel = new Drift(
       "#landscape-carousel",
       exampleImages,
       landscapeCarouselConfig
@@ -118,7 +118,7 @@
       captions: captions,  // Array of captions
       arrows: false,
    };
-   const portraitCarouselLeft = new DriftCarousel(
+   const portraitCarouselLeft = new Drift(
       "#portrait-carousel-left",
       exampleImages,
       portraitCarouselLeftConfig
@@ -136,7 +136,7 @@
       brightness: 0.55,
       indicators: false,
    };
-   const portraitCarouselRight = new DriftCarousel(
+   const portraitCarouselRight = new Drift(
       "#portrait-carousel-right",
       exampleImages,
       portraitCarouselRightConfig

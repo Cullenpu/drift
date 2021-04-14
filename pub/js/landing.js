@@ -12,5 +12,5 @@ const landingConfig = {
   arrows: false,
 };
 
-const landing = new DriftCarousel("#landing", landingImages, landingConfig);
+const landing = new Drift("#landing", landingImages, landingConfig);
 landing.renderCarousel(0);
