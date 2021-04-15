@@ -39,3 +39,8 @@ td {
   font-size: 1.25em;
   font-weight: 600;
 }
+
+.method-row {
+    padding-bottom: 15px;
+    border-bottom: 1px solid var(--medium-gray);
+}
