@@ -1,8 +1,8 @@
-![Drift](pub/res/logo/drift-black.svg)
+[![Drift](pub/res/logo/drift-black.svg)](https://driftjs.herokuapp.com)
 
 Drift is a lightweight, dependency-free, JavaScript carousel which can be used standalone or as a background.
 
-Learn more about Drift [here](https://driftjs.herokuapp.com/).
+Learn more about Drift [here](https://driftjs.herokuapp.com).
 
 ## Documentation
 
@@ -24,7 +24,7 @@ Next, make an array containg paths to the desired images and create and render a
 ```js
 const myImages = ["img1", "img2", "img3"];
 
-const drift = Drift("#my-id", myImages);
+const drift = new Drift("#my-id", myImages);
 drift.renderCarousel(0);
 ```
 
@@ -42,6 +42,6 @@ const myConfig = {
   indicators: false,
   arrows: false,
 };
-const drift = Drift("#my-id", myImages, myConfig);
+const drift = new Drift("#my-id", myImages, myConfig);
 drift.renderCarousel(0);
 ```

@@ -40,6 +40,7 @@ class Drift {
       brightness: 1,
       opacity: 1,
       captions: null,
+      captionSize: "10px",
       indicators: true,
       arrows: true,
     };
@@ -99,7 +100,7 @@ class Drift {
       // or leave space for captions if captions are configured
       imageElement.style.width = "100%";
       imageElement.style.height = this.config.captions
-        ? "calc(100% - 14px)"
+        ? `calc(100% - ${this.config.captionSize} - 4px)`
         : "100%";
       imageElement.style.objectFit = "cover";
 
@@ -125,7 +126,7 @@ class Drift {
         captionElement.style.bottom = "0";
         captionElement.style.opacity = 0;
         captionElement.style.visibility = "hidden";
-        captionElement.style.fontSize = "10px";
+        captionElement.style.fontSize = this.config.captionSize;
         captionElement.innerHTML = caption;
 
         this.parentElement.prepend(captionElement);
@@ -146,7 +147,9 @@ class Drift {
   createIndicators() {
     const indicatorElements = document.createElement("div");
     indicatorElements.style.position = "absolute";
-    indicatorElements.style.bottom = this.config.captions ? "24px" : "10px";
+    indicatorElements.style.bottom = this.config.captions
+      ? `calc(${this.config.captionSize} + 14px)`
+      : "10px";
     indicatorElements.style.left = "50%";
     indicatorElements.style.transform = "translate(-50%, 0)";
     indicatorElements.style.textAlign = "center";
@@ -306,7 +309,7 @@ class Drift {
     const imageElement = this.imageElements[i];
     // Check if captions were changed since last render
     imageElement.style.height = this.config.captions
-      ? "calc(100% - 14px)"
+      ? `calc(100% - ${this.config.captionSize} - 4px)`
       : "100%";
     if (visibility === "visible") {
       imageElement.style.visibility = "visible";
@@ -332,6 +335,7 @@ class Drift {
   renderCaptions(i, visibility) {
     if (this.config.captions) {
       const captionElement = this.captionElements[i];
+      captionElement.style.fontSize = this.config.captionSize;
       if (visibility === "visible") {
         captionElement.style.visibility = "visible";
         captionElement.style.opacity = 1;
@@ -357,7 +361,7 @@ class Drift {
     if (this.config.indicators) {
       // Check if captions were changed since last render
       this.indicatorElements.style.bottom = this.config.captions
-        ? "24px"
+        ? `calc(${this.config.captionSize} + 14px)`
         : "10px";
       this.indicatorElements.style.visibility = "visible";
       const indicatorElement = this.indicatorElements.children[i];
@@ -450,6 +454,15 @@ class Drift {
       this.config.captions = null;
     }
     this.captionElements = this.createCaptions();
+  }
+
+  /**
+   * Sets the font size of the captions, if any. This can be in any CSS unit.
+   *
+   * @param {string} captionSize - The font size of the captions.
+   */
+  setCaptionSize(captionSize) {
+    this.config.captionSize = captionSize;
   }
 
   /**

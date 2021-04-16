@@ -32,7 +32,7 @@
       <h2 class="section-header">Constructor</h2>
       <p>An instance of Drift must be created before it is used.</p>
       <code class="code-block"
-        >const drift = Drift(selector, images, config);</code
+        >const drift = new Drift(selector, images, config);</code
       >
       <table>
         <tr>
@@ -135,6 +135,14 @@
           </td>
         </tr>
         <tr>
+          <td><code class="code-block">captionSize</code></td>
+          <td>String</td>
+          <td><code class="code-block">"10px"</code></td>
+          <td>
+            <p>The font size of captions.</p>
+          </td>
+        </tr>
+        <tr>
           <td><code class="code-block">indicators</code></td>
           <td>Boolean</td>
           <td><code class="code-block">true</code></td>
@@ -199,10 +207,17 @@
         number of images in the carousel.
       </p>
 
+      <code class="method">.setCaptionSize(captionSize)</code>
+      <p class="method-row">
+        Sets the font size of the captions, if any, to
+        <code class="code-block">captionSize</code>. This can be in any CSS
+        unit.
+      </p>
+
       <code class="method">.setIndicators(toggle)</code>
       <p class="method-row">
         Sets the indicators configuration to
-        <code class="code-block">toggle</code>
+        <code class="code-block">toggle</code>.
       </p>
 
       <code class="method">.setArrows(toggle)</code>
