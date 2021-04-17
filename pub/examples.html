@@ -30,59 +30,63 @@
     <div class="content">
       <h2 class="page-header">Examples</h2>
 
-      <div>
-        <h2 class="section-header">Default Configuration</h2>
-        <pre class="code-block">
-<code>
-   Drift.config = {
-      transitionTimeout: 5000,
-      transitionDuration: 1000,
-      random: false,
-      brightness: 1,
-      opacity: 1,
-      captions: null,
-      captionSize: "10px",
-      indicators: true,
-      arrows: true,
-   };
-</code>
-</pre>
-        <p>
-          The only things Drift requires are a selector and an array of images.
-        </p>
-        <pre class="code-block">
-<code>
-   const defaultCarousel = new Drift("#default-carousel", exampleImages);
-   defaultCarousel.renderCarousel(0);
-</code>
-</pre>
-        <div id="default-carousel">
-          <code class="margin-5">#default-carousel</code>
-        </div>
+      <h2 class="section-header">Sample Usage</h2>
+      <div id="default-carousel">
+        <code class="margin-5">#default-carousel</code>
       </div>
+      <p>
+        The only things Drift requires are a
+        <code class="code-block code-inline">&ltdiv&gt</code> selector and an
+        array of images. Note that the selected
+        <code class="code-block code-inline">&ltdiv&gt</code> must have a height
+        and width; this will be the height and width of the carousel. It can
+        also contain other HTML elements, as seen in the examples below. If so,
+        Drift will act as a background rather than a standalone carousel. The
+        best part? The code remains the same for either situation!
+      </p>
+      <pre class="code-block">
+<code>
+  const exampleImages = [
+    "res/example/img1.jpg",
+    "res/example/img2.jpg",
+    "res/example/img3.jpg",
+    "res/example/img4.jpg",
+    "res/example/img5.jpg",
+  ];
+
+  const defaultCarousel = new Drift("#default-carousel", exampleImages);
+  defaultCarousel.renderCarousel(0);
+</code>
+</pre>
+
+      <h2 class="section-header">Default Configuration</h2>
+      <p>
+        Drift comes with a default configuration. These options were chosen to
+        cover a wide range of carousel usage. Don't worry if there's an option
+        you don't like - any of these options can be changed.
+      </p>
+      <pre class="code-block">
+<code>
+  Drift.config = {
+    transitionTimeout: 5000,
+    transitionDuration: 1000,
+    random: false,
+    brightness: 1,
+    opacity: 1,
+    captions: null,
+    captionSize: "10px",
+    indicators: true,
+    arrows: true,
+  };
+</code>
+</pre>
 
       <h2 class="section-header">Custom Configuration</h2>
       <p>
         Any of the default configuration options can be overwritten by passing
-        in a configuration object.
+        in a configuration object. You can change as little or as many of the
+        options as you want. The rest will keep their default values.
       </p>
-      <pre class="code-block">
-<code>
-   const landscapeCarouselConfig = {
-      transitionTimeout: 3000,
-      transitionDuration: 2000,
-      random: true,
-      opacity: 0.5,
-   };
-
-   const landscapeCarousel = new Drift(
-      "#landscape-carousel",
-      exampleImages,
-      landscapeCarouselConfig
-   );
-   landscapeCarousel.renderCarousel(0);
-</code>
-</pre>
       <div id="landscape-carousel">
         <code class="margin-5">#landscape-carousel</code>
         <div class="landscape-carousel-text">
@@ -100,52 +104,35 @@
           </ul>
         </div>
       </div>
+      <pre class="code-block">
+<code>
+   const landscapeCarouselConfig = {
+      transitionTimeout: 3000,
+      transitionDuration: 2000,
+      random: true,
+      opacity: 0.5,
+   };
+
+   const landscapeCarousel = new Drift(
+      "#landscape-carousel",
+      exampleImages,
+      landscapeCarouselConfig
+   );
+   landscapeCarousel.renderCarousel(0);
+</code>
+</pre>
 
       <h2 class="section-header">Image Orientation & Captions</h2>
       <p>
-        Images are automatically sized to fully cover the carousel without
-        warping.
+        Drift offers simplicity and figures things out for you - images are
+        automatically resized to fully cover the carousel without warping no
+        matter the carousel orientation.
       </p>
       <p>
-        Captions can contain HTML elements to allow for more flexibility in
-        styling.
+        Captions are also intuitive. They can contain HTML elements and tags to
+        allow for more flexibility in styling.
       </p>
-      <pre class="code-block">
-<code>
-   /** Left Carousel *************************************/
 
-   const portraitCarouselLeftConfig = {
-      transitionTimeout: 3000,
-      random: true,
-      captions: captions,  // Array of captions
-      arrows: false,
-   };
-   const portraitCarouselLeft = new Drift(
-      "#portrait-carousel-left",
-      exampleImages,
-      portraitCarouselLeftConfig
-   );
-   portraitCarouselLeft.renderCarousel(0);
-</code>
-</pre>
-
-      <pre class="code-block">
-<code>
-   /** Right Carousel *************************************/
-
-   const portraitCarouselRightConfig = {
-      transitionTimeout: 3000,
-      brightness: 0.55,
-      indicators: false,
-   };
-   const portraitCarouselRight = new Drift(
-      "#portrait-carousel-right",
-      exampleImages,
-      portraitCarouselRightConfig
-   );
-   portraitCarouselRight.renderCarousel(0);
-</code>
-</pre>
       <div class="portrait-carousel-container">
         <div id="portrait-carousel-left" class="portrait-carousel">
           <code class="margin-5">#portrait-carousel-left</code>
@@ -184,7 +171,44 @@
         </div>
       </div>
 
-      <h2 class="section-header">Example Images</h2>
+      <pre class="code-block">
+<code>
+   /** Left Carousel *************************************/
+
+   const portraitCarouselLeftConfig = {
+      transitionTimeout: 3000,
+      random: true,
+      captions: captions,  // Array of captions
+      arrows: false,
+   };
+   const portraitCarouselLeft = new Drift(
+      "#portrait-carousel-left",
+      exampleImages,
+      portraitCarouselLeftConfig
+   );
+   portraitCarouselLeft.renderCarousel(0);
+</code>
+</pre>
+
+      <pre class="code-block">
+<code>
+   /** Right Carousel *************************************/
+
+   const portraitCarouselRightConfig = {
+      transitionTimeout: 3000,
+      brightness: 0.55,
+      indicators: false,
+   };
+   const portraitCarouselRight = new Drift(
+      "#portrait-carousel-right",
+      exampleImages,
+      portraitCarouselRightConfig
+   );
+   portraitCarouselRight.renderCarousel(0);
+</code>
+</pre>
+
+      <h2 class="section-header">Images Used</h2>
       <div class="example-image-row">
         <div class="example-image-container">
           <img src="res/example/img1.jpg" class="example-image" />

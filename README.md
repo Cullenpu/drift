@@ -4,6 +4,14 @@ Drift is a lightweight, dependency-free, JavaScript carousel which can be used s
 
 Learn more about Drift [here](https://driftjs.herokuapp.com).
 
+## Getting Started
+
+Link the library in the `<head>` section of your HTML code.
+
+```html
+<script defer type="text/javascript" src="js/drift.js">
+```
+
 ## Documentation
 
 The full documentation can be found [here](https://driftjs.herokuapp.com/api.html).
@@ -39,8 +47,6 @@ const myConfig = {
   random: true,
   brightness: 0.55,
   captions: myCaptions,
-  indicators: false,
-  arrows: false,
 };
 const drift = new Drift("#my-id", myImages, myConfig);
 drift.renderCarousel(0);
