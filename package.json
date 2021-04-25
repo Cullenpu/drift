@@ -1,14 +1,24 @@
 {
-  "name": "drift",
+  "name": "@cullenpu/drift",
   "version": "1.0.0",
-  "description": "A lightweight, dependency free, JavaScript package capable of turning anything into a carousel.",
+  "description": "A lightweight, dependency-free JavaScript carousel which can be used standalone or as a background.",
+  "homepage": "https://driftjs.herokuapp.com",
+  "private": false,
+  "repository": "cullenpu/drift",
   "main": "server.js",
+  "keywords": [
+    "drift",
+    "carousel",
+    "slider",
+    "slideshow",
+    "lightweight"
+  ],
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node server.js"
   },
-  "author": "Cullen Pu",
-  "license": "ISC",
+  "author": "Cullen Pu <cullenpu@gmail.com> (https://cullenpu.com)",
+  "license": "MIT",
   "dependencies": {
     "express": "^4.17.1"
   }

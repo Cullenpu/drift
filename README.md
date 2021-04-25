@@ -6,10 +6,16 @@ Learn more about Drift [here](https://driftjs.herokuapp.com).
 
 ## Getting Started
 
-Link the library in the `<head>` section of your HTML code.
+Get the latest version with NPM:
+
+```bash
+npm install @cullenpu/drift
+```
+
+Link the library in the `<head>` section of your HTML code:
 
 ```html
-<script defer type="text/javascript" src="js/drift.js">
+<script defer type="text/javascript" src="node_modules/@cullenpu/drift/pub/js/drift.js">
 ```
 
 ## Documentation
