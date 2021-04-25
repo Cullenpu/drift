@@ -18,8 +18,5 @@
     "start": "node server.js"
   },
   "author": "Cullen Pu <cullenpu@gmail.com> (https://cullenpu.com)",
-  "license": "MIT",
-  "dependencies": {
-    "express": "^4.17.1"
-  }
+  "license": "MIT"
 }
